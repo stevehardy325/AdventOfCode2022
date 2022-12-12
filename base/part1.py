@@ -1,35 +1,24 @@
+from string import ascii_letters
+from collections import defaultdict
 
 ex_input_filename = 'example.txt'
 input_filename = 'input.txt'
 
-def get_input(fname):
-    data = []
-    with open(fname) as fobj:
-        data = [l.strip() for l in fobj.readlines()]
-    return data
 
-def process(data):
+def process(fname):
     print('processing...')
-    print(data)
-    return len(data)
+    data = [list(l) for l in open(fname).read().split('\n')]
+
+    print(len(data))
 
 
 def main():
     print('running for example ------')
-    ex_data = get_input(ex_input_filename)
-    ex_result = process(ex_data)
-    print('example result:')
-    print(ex_result)
-    assert ex_result == 5
+    process(ex_input_filename)
 
-    print('running for real input ------')
-    input_data = get_input(input_filename)
-    real_result = process(input_data)
-    print('real result:')
-    print(real_result)
+    #print('running for real input ------')
+    # process(input_filename)
 
 
 if __name__ == '__main__':
     main()
-
-    
