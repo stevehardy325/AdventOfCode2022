@@ -1,0 +1,4 @@
+winenv/
+__pycache__/
+*/__pycache__/
+*/*.gif
