@@ -103,7 +103,7 @@ def process(fname):
             rock.moveToStart(nodes)
 
             max_i = int(max([0] + [i.real for i in nodes]))
-            top_nodes = frozenset([complex(i - max_i, j) for i in range(max_i - 40, max_i + 1) for j in range(1, 8) if complex(i,j) in nodes])
+            top_nodes = frozenset([complex(i - max_i, j) for i in range(max_i - 20, max_i + 1) for j in range(1, 8) if complex(i,j) in nodes])
             state = (top_nodes, archetype_index, init_wind_index)
             if state in seen:
                 if state in seen_second:
@@ -113,9 +113,9 @@ def process(fname):
                     height_diff = second_height-first_height
                     new_height = max_i
                     if count_diff + count < target:
-                        while count_diff + count < target:
-                            new_height += height_diff
-                            count += count_diff
+                        factor = (target - count) // count_diff
+                        new_height += height_diff * factor
+                        count += count_diff * factor
                         nodes_at_top = [n + new_height for n in top_nodes]
                         for n in nodes_at_top:
                             nodes.add(n)
@@ -123,7 +123,6 @@ def process(fname):
 
                 else:
                     seen_second[state] = (count, max_i)
-                    print('CYCLE')
             else:
                 seen[state] = (count, max_i)
 
@@ -154,7 +153,7 @@ def process(fname):
 def main():
     print('running for example ------')
     process(ex_input_filename)
-    time.sleep(10)
+    #time.sleep(10)
     print('running for real input ------')
     process(input_filename)
 
